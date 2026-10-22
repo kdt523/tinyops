@@ -82,3 +82,26 @@ Entry template:
 ## 2026-10-22 — Pods in `hard` logs and realism trade-offs
 **Reality:** to keep the key line outside the last 20 log lines at `hard`, 22-40 benign lines follow it, even for crash-looping pods (real `kubectl logs` would end at the error). Describe output is cut at 1,500 chars (events can be truncated), so evidence is also reachable via `get_events`.
 **Decision:** accepted for the simulator; noted as a limitation for the article.
+
+## 2026-10-22 — AuditKIT `agent_loop_detection` vs TinyScore `loop_rate` (random policy, val): 12.2 pt gap
+**Plan said:** if a comparable metric disagrees by more than 5 points, investigate and explain (skill 4.6).
+**Investigation:** on `random_val` AuditKIT flags 22/180 episodes, TinyScore `looped` flags 0. All 22 flagged episodes contain a repeated call (45 episodes have one); none is flagged without a repeat. AuditKIT's reasons: "call-graph cycle" (a call revisits an earlier one), or the same call 3+ times. TinyScore's `looped` means the episode ended by hitting `max_steps`, which did not happen.
+**Decision:** definitional difference, not a bug. TinyScore keeps `looped` = max_steps and reports `redundant_calls` separately; the cross-check table shows the gap and flags it. The two agree on the oracle (0 / 0) and on a genuine 8x repeated call (both flag; `test_genuine_loop_is_flagged_by_both`).
+
+## 2026-10-22 — AuditKIT loop detector false positive on tool-call JSON "thoughts" (feedback for Lexsi)
+**Reality:** `agent_loop_detection` has a reasoning-stagnation signal that compares consecutive `thought` strings (difflib ratio >= 0.85). AgentTune rollouts store `thought = raw_output`; with the Tiny Aya fallback format that is tool-call JSON, and consecutive calls like `[{"tool_name": "list_pods", ...}]` / `[{"tool_name": "describe_pod", ...}]` are textually similar. On 50 clean oracle episodes it flagged 46 as loops.
+**Decision:** the TinyOps export writes `thought: null` (raw text stays in `metadata.conversation`). After this the oracle cross-check agrees on every metric. Candidate issue for `docs/LEXSI_FEEDBACK.md` (skill 9): repro = export any 3-call JSON-format trajectory with `thought=raw_output` and run `agent_loop_detection`.
+
+## 2026-10-22 — Grounding ignores evidence shorter than 6 normalised characters
+**Plan said:** grounding = fraction of evidence items that are normalised substrings of an observation (skill 4.1).
+**Reality:** `"e"` or `"the"` is a substring of every observation, so junk evidence counted as grounded.
+**Decision:** items under `MIN_EVIDENCE_CHARS = 6` never count as grounded (test: `test_tiny_evidence_strings_cannot_be_grounded`). Real key evidence is longer (shortest is `OOMKilled`).
+
+## 2026-10-22 — Matcher uses word-start (stem) matching
+`oom` matches `OOMKilled`, `evict` matches `evicted`, `pull` matches `pulled`; `room` does not match `oom`. Type confusion is decided on term counts: an answer that fully matches another type's generic keywords at least as well as the true type's fails (blocks "list every cause"). Generic keyword sets live in `scoring/diagnosis.py::GENERIC_KEYWORDS` and a test ties them to the generators.
+
+## 2026-10-22 — Oracle bug found by the matcher; precision counts the fix tool
+The first sanity run gave oracle success 96.1%: the pending-memory phrasing "no node has enough free memory" contains neither "insufficient" nor "not enough". Rephrased; oracle is now 100% on every split (`test_oracle_scores_perfectly_on_every_split`). `tool_selection_precision` treats `gt.correct_fix.tool` (restart_deployment for hung) as relevant, since the oracle must call it.
+
+## 2026-10-22 — Untested piece: LLM-judge agreement
+`scoring/judge_check.py` is implemented and unit-untested against a real judge: it needs a Gemini key. The matcher/judge agreement rate is therefore NOT measured yet and METRICS.md says so.

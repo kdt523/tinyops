@@ -50,6 +50,16 @@ def diagnosis_text(diagnosis: dict | None) -> str:
     )
 
 
+def diagnosis_from_text(text: str | None) -> dict | None:
+    """Inverse of `diagnosis_text` (used when only AgentTune's final_response is available)."""
+    if not text or not text.strip():
+        return None
+    head, _, rest = text.partition("\nEvidence:\n")
+    evidence_part, _, fix = rest.partition("\nRecommended fix:")
+    evidence = [ln[2:] for ln in evidence_part.splitlines() if ln.startswith("- ")]
+    return {"root_cause": head.strip(), "evidence": evidence, "recommended_fix": fix.strip()}
+
+
 def _call_id(step: StepRecord) -> str:
     return f"call_{step.index}"
 
@@ -68,7 +78,10 @@ def episode_to_trajectory_line(ep: Episode) -> dict[str, Any]:
                 "state": f"[turn={s.index}]",
                 "action": {"tool_calls": calls},
                 "observation": s.observation,
-                "thought": s.raw_model_text,
+                # None on purpose: AuditKIT's agent_loop_detection treats `thought` as reasoning
+                # text and flags consecutive near-identical tool-call JSON as "stagnation"
+                # (false loops). The raw model text is kept in metadata.conversation.
+                "thought": None,
                 "reward": None,
             }
         )

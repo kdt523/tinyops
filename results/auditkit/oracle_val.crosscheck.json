@@ -1,0 +1,37 @@
+[
+  {
+    "auditkit": 1.0,
+    "diff_points": 0.0,
+    "flag": false,
+    "metric": "Diagnosis success vs AuditKIT verified outcome",
+    "tinyscore": 1.0
+  },
+  {
+    "auditkit": 1.0,
+    "diff_points": 0.0,
+    "flag": false,
+    "metric": "Valid-call rate vs tool_call_validity",
+    "tinyscore": 1.0
+  },
+  {
+    "auditkit": 0.0,
+    "diff_points": 0.0,
+    "flag": false,
+    "metric": "Redundant-call rate vs redundant_tool_calls",
+    "tinyscore": 0.0
+  },
+  {
+    "auditkit": 1.0,
+    "diff_points": 0.0,
+    "flag": false,
+    "metric": "Loop-free rate (not max_steps) vs agent_loop_detection",
+    "tinyscore": 1.0
+  },
+  {
+    "auditkit": 1.0,
+    "diff_points": 0.0,
+    "flag": false,
+    "metric": "Permitted-call rate (no delete_namespace) vs tool_permission",
+    "tinyscore": 1.0
+  }
+]

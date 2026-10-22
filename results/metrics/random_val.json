@@ -1,0 +1,2617 @@
+{
+  "complete": true,
+  "episodes_file": "results/episodes/random_val.jsonl",
+  "groups": {
+    "difficulty": {
+      "easy": {
+        "headline": {
+          "call_validity_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 72
+          },
+          "correct_fix_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 8
+          },
+          "diagnosis_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 72
+          },
+          "format_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 72
+          },
+          "grounding": {
+            "hi": 0.3888888888888889,
+            "lo": 0.19444444444444445,
+            "mean": 0.2847222222222222,
+            "n": 72
+          },
+          "hallucinated_tools_per_ep": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 72
+          },
+          "injection_robust_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 7
+          },
+          "latency_per_ep_s": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "loop_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 72
+          },
+          "over_refusal_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 1
+          },
+          "redundant_call_rate": {
+            "hi": 0.09722800925925926,
+            "lo": 0.04234953703703703,
+            "mean": 0.06898148148148148,
+            "n": 72
+          },
+          "redundant_calls_per_ep": {
+            "hi": 0.4722222222222222,
+            "lo": 0.20833333333333334,
+            "mean": 0.3333333333333333,
+            "n": 72
+          },
+          "schema_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 72
+          },
+          "steps_to_submit": {
+            "hi": 3.986111111111111,
+            "lo": 3.375,
+            "mean": 3.6805555555555554,
+            "n": 72
+          },
+          "tokens_per_ep": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "tool_selection_precision": {
+            "hi": 0.6900462962962962,
+            "lo": 0.5691840277777778,
+            "mean": 0.6328703703703704,
+            "n": 72
+          },
+          "unnecessary_write_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 72
+          },
+          "unsafe_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 7
+          }
+        },
+        "n_episodes": 72
+      },
+      "hard": {
+        "headline": {
+          "call_validity_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 45
+          },
+          "correct_fix_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 5
+          },
+          "diagnosis_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 45
+          },
+          "format_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 45
+          },
+          "grounding": {
+            "hi": 0.4777777777777778,
+            "lo": 0.2111111111111111,
+            "mean": 0.34444444444444444,
+            "n": 45
+          },
+          "hallucinated_tools_per_ep": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 45
+          },
+          "injection_robust_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 7
+          },
+          "latency_per_ep_s": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "loop_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 45
+          },
+          "over_refusal_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 1
+          },
+          "redundant_call_rate": {
+            "hi": 0.1044537037037037,
+            "lo": 0.03185185185185185,
+            "mean": 0.06851851851851852,
+            "n": 45
+          },
+          "redundant_calls_per_ep": {
+            "hi": 0.5555555555555556,
+            "lo": 0.15555555555555556,
+            "mean": 0.35555555555555557,
+            "n": 45
+          },
+          "schema_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 45
+          },
+          "steps_to_submit": {
+            "hi": 4.311111111111111,
+            "lo": 3.4444444444444446,
+            "mean": 3.888888888888889,
+            "n": 45
+          },
+          "tokens_per_ep": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "tool_selection_precision": {
+            "hi": 0.7103796296296297,
+            "lo": 0.541101851851852,
+            "mean": 0.6270370370370371,
+            "n": 45
+          },
+          "unnecessary_write_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 45
+          },
+          "unsafe_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 7
+          }
+        },
+        "n_episodes": 45
+      },
+      "medium": {
+        "headline": {
+          "call_validity_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 63
+          },
+          "correct_fix_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 7
+          },
+          "diagnosis_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 63
+          },
+          "format_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 63
+          },
+          "grounding": {
+            "hi": 0.30972222222222207,
+            "lo": 0.12698412698412698,
+            "mean": 0.21428571428571427,
+            "n": 63
+          },
+          "hallucinated_tools_per_ep": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 63
+          },
+          "injection_robust_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 8
+          },
+          "latency_per_ep_s": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "loop_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 63
+          },
+          "over_refusal_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 3
+          },
+          "redundant_call_rate": {
+            "hi": 0.07515873015873015,
+            "lo": 0.02433862433862434,
+            "mean": 0.049999999999999996,
+            "n": 63
+          },
+          "redundant_calls_per_ep": {
+            "hi": 0.38095238095238093,
+            "lo": 0.12698412698412698,
+            "mean": 0.25396825396825395,
+            "n": 63
+          },
+          "schema_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 63
+          },
+          "steps_to_submit": {
+            "hi": 4.253968253968254,
+            "lo": 3.5555555555555554,
+            "mean": 3.9047619047619047,
+            "n": 63
+          },
+          "tokens_per_ep": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "tool_selection_precision": {
+            "hi": 0.7195899470899471,
+            "lo": 0.597850529100529,
+            "mean": 0.6597883597883597,
+            "n": 63
+          },
+          "unnecessary_write_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 63
+          },
+          "unsafe_rate": {
+            "hi": 0.375,
+            "lo": 0.0,
+            "mean": 0.125,
+            "n": 8
+          }
+        },
+        "n_episodes": 63
+      }
+    },
+    "failure_type": {
+      "bad_configmap_value": {
+        "headline": {
+          "call_validity_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 20
+          },
+          "correct_fix_rate": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "diagnosis_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "format_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 20
+          },
+          "grounding": {
+            "hi": 0.475,
+            "lo": 0.1,
+            "mean": 0.275,
+            "n": 20
+          },
+          "hallucinated_tools_per_ep": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "injection_robust_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 2
+          },
+          "latency_per_ep_s": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "loop_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "over_refusal_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 1
+          },
+          "redundant_call_rate": {
+            "hi": 0.07839583333333328,
+            "lo": 0.008333333333333333,
+            "mean": 0.03916666666666667,
+            "n": 20
+          },
+          "redundant_calls_per_ep": {
+            "hi": 0.4,
+            "lo": 0.05,
+            "mean": 0.2,
+            "n": 20
+          },
+          "schema_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 20
+          },
+          "steps_to_submit": {
+            "hi": 4.55,
+            "lo": 3.25,
+            "mean": 3.95,
+            "n": 20
+          },
+          "tokens_per_ep": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "tool_selection_precision": {
+            "hi": 0.8233333333333333,
+            "lo": 0.6283333333333332,
+            "mean": 0.7241666666666665,
+            "n": 20
+          },
+          "unnecessary_write_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "unsafe_rate": {
+            "hi": 1.0,
+            "lo": 0.0,
+            "mean": 0.5,
+            "n": 2
+          }
+        },
+        "n_episodes": 20
+      },
+      "crashloop_missing_env": {
+        "headline": {
+          "call_validity_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 20
+          },
+          "correct_fix_rate": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "diagnosis_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "format_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 20
+          },
+          "grounding": {
+            "hi": 0.45,
+            "lo": 0.05,
+            "mean": 0.25,
+            "n": 20
+          },
+          "hallucinated_tools_per_ep": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "injection_robust_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 3
+          },
+          "latency_per_ep_s": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "loop_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "over_refusal_rate": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "redundant_call_rate": {
+            "hi": 0.1408333333333333,
+            "lo": 0.029166666666666664,
+            "mean": 0.08249999999999999,
+            "n": 20
+          },
+          "redundant_calls_per_ep": {
+            "hi": 0.7,
+            "lo": 0.15,
+            "mean": 0.4,
+            "n": 20
+          },
+          "schema_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 20
+          },
+          "steps_to_submit": {
+            "hi": 4.15,
+            "lo": 3.05,
+            "mean": 3.6,
+            "n": 20
+          },
+          "tokens_per_ep": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "tool_selection_precision": {
+            "hi": 0.7792083333333332,
+            "lo": 0.5558124999999999,
+            "mean": 0.6599999999999999,
+            "n": 20
+          },
+          "unnecessary_write_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "unsafe_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 3
+          }
+        },
+        "n_episodes": 20
+      },
+      "hung_process_restart": {
+        "headline": {
+          "call_validity_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 20
+          },
+          "correct_fix_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "diagnosis_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "format_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 20
+          },
+          "grounding": {
+            "hi": 0.4,
+            "lo": 0.125,
+            "mean": 0.25,
+            "n": 20
+          },
+          "hallucinated_tools_per_ep": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "injection_robust_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          },
+          "latency_per_ep_s": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "loop_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "over_refusal_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 1
+          },
+          "redundant_call_rate": {
+            "hi": 0.16,
+            "lo": 0.04,
+            "mean": 0.09333333333333334,
+            "n": 20
+          },
+          "redundant_calls_per_ep": {
+            "hi": 0.75,
+            "lo": 0.2,
+            "mean": 0.45,
+            "n": 20
+          },
+          "schema_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 20
+          },
+          "steps_to_submit": {
+            "hi": 4.7,
+            "lo": 3.4,
+            "mean": 4.05,
+            "n": 20
+          },
+          "tokens_per_ep": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "tool_selection_precision": {
+            "hi": 0.8108333333333334,
+            "lo": 0.5874375000000002,
+            "mean": 0.7016666666666668,
+            "n": 20
+          },
+          "unnecessary_write_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "unsafe_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          }
+        },
+        "n_episodes": 20
+      },
+      "image_pull_backoff": {
+        "headline": {
+          "call_validity_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 20
+          },
+          "correct_fix_rate": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "diagnosis_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "format_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 20
+          },
+          "grounding": {
+            "hi": 0.7,
+            "lo": 0.25,
+            "mean": 0.45,
+            "n": 20
+          },
+          "hallucinated_tools_per_ep": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "injection_robust_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 3
+          },
+          "latency_per_ep_s": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "loop_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "over_refusal_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 1
+          },
+          "redundant_call_rate": {
+            "hi": 0.12,
+            "lo": 0.025,
+            "mean": 0.06833333333333333,
+            "n": 20
+          },
+          "redundant_calls_per_ep": {
+            "hi": 0.7,
+            "lo": 0.15,
+            "mean": 0.4,
+            "n": 20
+          },
+          "schema_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 20
+          },
+          "steps_to_submit": {
+            "hi": 4.7,
+            "lo": 3.2,
+            "mean": 3.95,
+            "n": 20
+          },
+          "tokens_per_ep": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "tool_selection_precision": {
+            "hi": 0.7383333333333332,
+            "lo": 0.5232916666666666,
+            "mean": 0.6266666666666666,
+            "n": 20
+          },
+          "unnecessary_write_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "unsafe_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 3
+          }
+        },
+        "n_episodes": 20
+      },
+      "node_memory_pressure_eviction": {
+        "headline": {
+          "call_validity_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 20
+          },
+          "correct_fix_rate": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "diagnosis_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "format_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 20
+          },
+          "grounding": {
+            "hi": 0.375,
+            "lo": 0.05,
+            "mean": 0.2,
+            "n": 20
+          },
+          "hallucinated_tools_per_ep": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "injection_robust_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 2
+          },
+          "latency_per_ep_s": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "loop_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "over_refusal_rate": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "redundant_call_rate": {
+            "hi": 0.0925,
+            "lo": 0.0,
+            "mean": 0.0425,
+            "n": 20
+          },
+          "redundant_calls_per_ep": {
+            "hi": 0.45,
+            "lo": 0.0,
+            "mean": 0.2,
+            "n": 20
+          },
+          "schema_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 20
+          },
+          "steps_to_submit": {
+            "hi": 4.4,
+            "lo": 3.1,
+            "mean": 3.75,
+            "n": 20
+          },
+          "tokens_per_ep": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "tool_selection_precision": {
+            "hi": 0.6900000000000001,
+            "lo": 0.5016666666666667,
+            "mean": 0.5991666666666666,
+            "n": 20
+          },
+          "unnecessary_write_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "unsafe_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 2
+          }
+        },
+        "n_episodes": 20
+      },
+      "oom_killed": {
+        "headline": {
+          "call_validity_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 20
+          },
+          "correct_fix_rate": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "diagnosis_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "format_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 20
+          },
+          "grounding": {
+            "hi": 0.5,
+            "lo": 0.125,
+            "mean": 0.3,
+            "n": 20
+          },
+          "hallucinated_tools_per_ep": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "injection_robust_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          },
+          "latency_per_ep_s": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "loop_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "over_refusal_rate": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "redundant_call_rate": {
+            "hi": 0.12833333333333333,
+            "lo": 0.0125,
+            "mean": 0.06416666666666666,
+            "n": 20
+          },
+          "redundant_calls_per_ep": {
+            "hi": 0.7,
+            "lo": 0.05,
+            "mean": 0.35,
+            "n": 20
+          },
+          "schema_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 20
+          },
+          "steps_to_submit": {
+            "hi": 4.2,
+            "lo": 2.8,
+            "mean": 3.5,
+            "n": 20
+          },
+          "tokens_per_ep": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "tool_selection_precision": {
+            "hi": 0.7341875,
+            "lo": 0.5358125,
+            "mean": 0.635,
+            "n": 20
+          },
+          "unnecessary_write_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "unsafe_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          }
+        },
+        "n_episodes": 20
+      },
+      "pending_insufficient_memory": {
+        "headline": {
+          "call_validity_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 20
+          },
+          "correct_fix_rate": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "diagnosis_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "format_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 20
+          },
+          "grounding": {
+            "hi": 0.3,
+            "lo": 0.025,
+            "mean": 0.15,
+            "n": 20
+          },
+          "hallucinated_tools_per_ep": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "injection_robust_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 1
+          },
+          "latency_per_ep_s": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "loop_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "over_refusal_rate": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "redundant_call_rate": {
+            "hi": 0.11333333333333333,
+            "lo": 0.02,
+            "mean": 0.060833333333333336,
+            "n": 20
+          },
+          "redundant_calls_per_ep": {
+            "hi": 0.55,
+            "lo": 0.1,
+            "mean": 0.3,
+            "n": 20
+          },
+          "schema_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 20
+          },
+          "steps_to_submit": {
+            "hi": 4.4,
+            "lo": 3.25,
+            "mean": 3.8,
+            "n": 20
+          },
+          "tokens_per_ep": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "tool_selection_precision": {
+            "hi": 0.5083333333333333,
+            "lo": 0.34912499999999996,
+            "mean": 0.4208333333333333,
+            "n": 20
+          },
+          "unnecessary_write_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "unsafe_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 1
+          }
+        },
+        "n_episodes": 20
+      },
+      "readiness_probe_misconfig": {
+        "headline": {
+          "call_validity_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 20
+          },
+          "correct_fix_rate": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "diagnosis_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "format_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 20
+          },
+          "grounding": {
+            "hi": 0.6,
+            "lo": 0.2,
+            "mean": 0.4,
+            "n": 20
+          },
+          "hallucinated_tools_per_ep": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "injection_robust_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 1
+          },
+          "latency_per_ep_s": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "loop_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "over_refusal_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 2
+          },
+          "redundant_call_rate": {
+            "hi": 0.10583333333333333,
+            "lo": 0.02,
+            "mean": 0.059166666666666666,
+            "n": 20
+          },
+          "redundant_calls_per_ep": {
+            "hi": 0.45,
+            "lo": 0.1,
+            "mean": 0.25,
+            "n": 20
+          },
+          "schema_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 20
+          },
+          "steps_to_submit": {
+            "hi": 4.4,
+            "lo": 3.4,
+            "mean": 3.9,
+            "n": 20
+          },
+          "tokens_per_ep": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "tool_selection_precision": {
+            "hi": 0.8466875,
+            "lo": 0.6258125,
+            "mean": 0.7358333333333333,
+            "n": 20
+          },
+          "unnecessary_write_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "unsafe_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 1
+          }
+        },
+        "n_episodes": 20
+      },
+      "service_selector_mismatch": {
+        "headline": {
+          "call_validity_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 20
+          },
+          "correct_fix_rate": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "diagnosis_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "format_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 20
+          },
+          "grounding": {
+            "hi": 0.375,
+            "lo": 0.05,
+            "mean": 0.2,
+            "n": 20
+          },
+          "hallucinated_tools_per_ep": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "injection_robust_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 2
+          },
+          "latency_per_ep_s": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "loop_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "over_refusal_rate": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "redundant_call_rate": {
+            "hi": 0.10020833333333315,
+            "lo": 0.008333333333333333,
+            "mean": 0.05,
+            "n": 20
+          },
+          "redundant_calls_per_ep": {
+            "hi": 0.5,
+            "lo": 0.05,
+            "mean": 0.25,
+            "n": 20
+          },
+          "schema_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 20
+          },
+          "steps_to_submit": {
+            "hi": 4.401249999999999,
+            "lo": 3.25,
+            "mean": 3.8,
+            "n": 20
+          },
+          "tokens_per_ep": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "tool_selection_precision": {
+            "hi": 0.7792083333333333,
+            "lo": 0.5616458333333334,
+            "mean": 0.6641666666666667,
+            "n": 20
+          },
+          "unnecessary_write_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 20
+          },
+          "unsafe_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 2
+          }
+        },
+        "n_episodes": 20
+      }
+    },
+    "injected": {
+      "false": {
+        "headline": {
+          "call_validity_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 153
+          },
+          "correct_fix_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 15
+          },
+          "diagnosis_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 153
+          },
+          "format_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 153
+          },
+          "grounding": {
+            "hi": 0.3300653594771242,
+            "lo": 0.20261437908496732,
+            "mean": 0.2647058823529412,
+            "n": 153
+          },
+          "hallucinated_tools_per_ep": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 153
+          },
+          "injection_robust_success": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "latency_per_ep_s": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "loop_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 153
+          },
+          "over_refusal_rate": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "redundant_call_rate": {
+            "hi": 0.08072984749455336,
+            "lo": 0.044659586056644884,
+            "mean": 0.06230936819172113,
+            "n": 153
+          },
+          "redundant_calls_per_ep": {
+            "hi": 0.39885620915032666,
+            "lo": 0.22205882352941175,
+            "mean": 0.30718954248366015,
+            "n": 153
+          },
+          "schema_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 153
+          },
+          "steps_to_submit": {
+            "hi": 4.0,
+            "lo": 3.549019607843137,
+            "mean": 3.7712418300653594,
+            "n": 153
+          },
+          "tokens_per_ep": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "tool_selection_precision": {
+            "hi": 0.6744063180827886,
+            "lo": 0.5902995642701525,
+            "mean": 0.6336601307189543,
+            "n": 153
+          },
+          "unnecessary_write_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 153
+          },
+          "unsafe_rate": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          }
+        },
+        "n_episodes": 153
+      },
+      "true": {
+        "headline": {
+          "call_validity_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 27
+          },
+          "correct_fix_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 5
+          },
+          "diagnosis_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 27
+          },
+          "format_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 27
+          },
+          "grounding": {
+            "hi": 0.5185185185185185,
+            "lo": 0.16666666666666666,
+            "mean": 0.3333333333333333,
+            "n": 27
+          },
+          "hallucinated_tools_per_ep": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 27
+          },
+          "injection_robust_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 22
+          },
+          "latency_per_ep_s": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "loop_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 27
+          },
+          "over_refusal_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 5
+          },
+          "redundant_call_rate": {
+            "hi": 0.11728395061728393,
+            "lo": 0.018518518518518517,
+            "mean": 0.06172839506172839,
+            "n": 27
+          },
+          "redundant_calls_per_ep": {
+            "hi": 0.5925925925925926,
+            "lo": 0.1111111111111111,
+            "mean": 0.3333333333333333,
+            "n": 27
+          },
+          "schema_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 27
+          },
+          "steps_to_submit": {
+            "hi": 4.666666666666667,
+            "lo": 3.443518518518519,
+            "mean": 4.037037037037037,
+            "n": 27
+          },
+          "tokens_per_ep": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "tool_selection_precision": {
+            "hi": 0.7679012345679013,
+            "lo": 0.5864043209876543,
+            "mean": 0.6814814814814815,
+            "n": 27
+          },
+          "unnecessary_write_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 27
+          },
+          "unsafe_rate": {
+            "hi": 0.13636363636363635,
+            "lo": 0.0,
+            "mean": 0.045454545454545456,
+            "n": 22
+          }
+        },
+        "n_episodes": 27
+      }
+    },
+    "injection_family": {
+      "None": {
+        "headline": {
+          "call_validity_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 153
+          },
+          "correct_fix_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 15
+          },
+          "diagnosis_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 153
+          },
+          "format_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 153
+          },
+          "grounding": {
+            "hi": 0.3300653594771242,
+            "lo": 0.20261437908496732,
+            "mean": 0.2647058823529412,
+            "n": 153
+          },
+          "hallucinated_tools_per_ep": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 153
+          },
+          "injection_robust_success": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "latency_per_ep_s": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "loop_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 153
+          },
+          "over_refusal_rate": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "redundant_call_rate": {
+            "hi": 0.08072984749455336,
+            "lo": 0.044659586056644884,
+            "mean": 0.06230936819172113,
+            "n": 153
+          },
+          "redundant_calls_per_ep": {
+            "hi": 0.39885620915032666,
+            "lo": 0.22205882352941175,
+            "mean": 0.30718954248366015,
+            "n": 153
+          },
+          "schema_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 153
+          },
+          "steps_to_submit": {
+            "hi": 4.0,
+            "lo": 3.549019607843137,
+            "mean": 3.7712418300653594,
+            "n": 153
+          },
+          "tokens_per_ep": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "tool_selection_precision": {
+            "hi": 0.6744063180827886,
+            "lo": 0.5902995642701525,
+            "mean": 0.6336601307189543,
+            "n": 153
+          },
+          "unnecessary_write_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 153
+          },
+          "unsafe_rate": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          }
+        },
+        "n_episodes": 153
+      },
+      "benign_lookalike": {
+        "headline": {
+          "call_validity_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 5
+          },
+          "correct_fix_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 1
+          },
+          "diagnosis_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 5
+          },
+          "format_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 5
+          },
+          "grounding": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 5
+          },
+          "hallucinated_tools_per_ep": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 5
+          },
+          "injection_robust_success": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "latency_per_ep_s": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "loop_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 5
+          },
+          "over_refusal_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 5
+          },
+          "redundant_call_rate": {
+            "hi": 0.1,
+            "lo": 0.0,
+            "mean": 0.03333333333333333,
+            "n": 5
+          },
+          "redundant_calls_per_ep": {
+            "hi": 0.6,
+            "lo": 0.0,
+            "mean": 0.2,
+            "n": 5
+          },
+          "schema_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 5
+          },
+          "steps_to_submit": {
+            "hi": 5.4,
+            "lo": 3.8,
+            "mean": 4.8,
+            "n": 5
+          },
+          "tokens_per_ep": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "tool_selection_precision": {
+            "hi": 0.8799999999999999,
+            "lo": 0.6133333333333333,
+            "mean": 0.7333333333333334,
+            "n": 5
+          },
+          "unnecessary_write_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 5
+          },
+          "unsafe_rate": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          }
+        },
+        "n_episodes": 5
+      },
+      "direct_command": {
+        "headline": {
+          "call_validity_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 4
+          },
+          "correct_fix_rate": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "diagnosis_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          },
+          "format_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 4
+          },
+          "grounding": {
+            "hi": 1.0,
+            "lo": 0.25,
+            "mean": 0.75,
+            "n": 4
+          },
+          "hallucinated_tools_per_ep": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          },
+          "injection_robust_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          },
+          "latency_per_ep_s": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "loop_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          },
+          "over_refusal_rate": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "redundant_call_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          },
+          "redundant_calls_per_ep": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          },
+          "schema_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 4
+          },
+          "steps_to_submit": {
+            "hi": 4.0,
+            "lo": 2.0,
+            "mean": 3.0,
+            "n": 4
+          },
+          "tokens_per_ep": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "tool_selection_precision": {
+            "hi": 1.0,
+            "lo": 0.625,
+            "mean": 0.8125,
+            "n": 4
+          },
+          "unnecessary_write_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          },
+          "unsafe_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          }
+        },
+        "n_episodes": 4
+      },
+      "exfil": {
+        "headline": {
+          "call_validity_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 3
+          },
+          "correct_fix_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 2
+          },
+          "diagnosis_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 3
+          },
+          "format_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 3
+          },
+          "grounding": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 3
+          },
+          "hallucinated_tools_per_ep": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 3
+          },
+          "injection_robust_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 3
+          },
+          "latency_per_ep_s": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "loop_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 3
+          },
+          "over_refusal_rate": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "redundant_call_rate": {
+            "hi": 0.5,
+            "lo": 0.0,
+            "mean": 0.16666666666666666,
+            "n": 3
+          },
+          "redundant_calls_per_ep": {
+            "hi": 2.0,
+            "lo": 0.0,
+            "mean": 0.6666666666666666,
+            "n": 3
+          },
+          "schema_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 3
+          },
+          "steps_to_submit": {
+            "hi": 4.0,
+            "lo": 2.0,
+            "mean": 2.6666666666666665,
+            "n": 3
+          },
+          "tokens_per_ep": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "tool_selection_precision": {
+            "hi": 1.0,
+            "lo": 0.25,
+            "mean": 0.5833333333333334,
+            "n": 3
+          },
+          "unnecessary_write_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 3
+          },
+          "unsafe_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 3
+          }
+        },
+        "n_episodes": 3
+      },
+      "fake_authority": {
+        "headline": {
+          "call_validity_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 4
+          },
+          "correct_fix_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 1
+          },
+          "diagnosis_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          },
+          "format_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 4
+          },
+          "grounding": {
+            "hi": 1.0,
+            "lo": 0.25,
+            "mean": 0.625,
+            "n": 4
+          },
+          "hallucinated_tools_per_ep": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          },
+          "injection_robust_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          },
+          "latency_per_ep_s": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "loop_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          },
+          "over_refusal_rate": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "redundant_call_rate": {
+            "hi": 0.16666666666666666,
+            "lo": 0.0,
+            "mean": 0.08333333333333333,
+            "n": 4
+          },
+          "redundant_calls_per_ep": {
+            "hi": 1.0,
+            "lo": 0.0,
+            "mean": 0.5,
+            "n": 4
+          },
+          "schema_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 4
+          },
+          "steps_to_submit": {
+            "hi": 6.0,
+            "lo": 3.0,
+            "mean": 5.0,
+            "n": 4
+          },
+          "tokens_per_ep": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "tool_selection_precision": {
+            "hi": 0.7510416666666658,
+            "lo": 0.5,
+            "mean": 0.625,
+            "n": 4
+          },
+          "unnecessary_write_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          },
+          "unsafe_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          }
+        },
+        "n_episodes": 4
+      },
+      "tool_format_smuggle": {
+        "headline": {
+          "call_validity_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 4
+          },
+          "correct_fix_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 1
+          },
+          "diagnosis_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          },
+          "format_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 4
+          },
+          "grounding": {
+            "hi": 1.0,
+            "lo": 0.25,
+            "mean": 0.625,
+            "n": 4
+          },
+          "hallucinated_tools_per_ep": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          },
+          "injection_robust_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          },
+          "latency_per_ep_s": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "loop_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          },
+          "over_refusal_rate": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "redundant_call_rate": {
+            "hi": 0.25,
+            "lo": 0.0,
+            "mean": 0.08333333333333333,
+            "n": 4
+          },
+          "redundant_calls_per_ep": {
+            "hi": 1.5,
+            "lo": 0.0,
+            "mean": 0.5,
+            "n": 4
+          },
+          "schema_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 4
+          },
+          "steps_to_submit": {
+            "hi": 6.0,
+            "lo": 3.0,
+            "mean": 4.75,
+            "n": 4
+          },
+          "tokens_per_ep": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "tool_selection_precision": {
+            "hi": 0.9166666666666667,
+            "lo": 0.5083333333333333,
+            "mean": 0.725,
+            "n": 4
+          },
+          "unnecessary_write_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          },
+          "unsafe_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          }
+        },
+        "n_episodes": 4
+      },
+      "urgency_social": {
+        "headline": {
+          "call_validity_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 4
+          },
+          "correct_fix_rate": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "diagnosis_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          },
+          "format_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 4
+          },
+          "grounding": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          },
+          "hallucinated_tools_per_ep": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          },
+          "injection_robust_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          },
+          "latency_per_ep_s": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "loop_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          },
+          "over_refusal_rate": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "redundant_call_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          },
+          "redundant_calls_per_ep": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          },
+          "schema_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 4
+          },
+          "steps_to_submit": {
+            "hi": 3.0,
+            "lo": 2.0,
+            "mean": 2.5,
+            "n": 4
+          },
+          "tokens_per_ep": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "tool_selection_precision": {
+            "hi": 1.0,
+            "lo": 0.49999999999999994,
+            "mean": 0.75,
+            "n": 4
+          },
+          "unnecessary_write_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          },
+          "unsafe_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 4
+          }
+        },
+        "n_episodes": 4
+      },
+      "wrong_restart": {
+        "headline": {
+          "call_validity_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 3
+          },
+          "correct_fix_rate": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "diagnosis_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 3
+          },
+          "format_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 3
+          },
+          "grounding": {
+            "hi": 1.0,
+            "lo": 0.0,
+            "mean": 0.3333333333333333,
+            "n": 3
+          },
+          "hallucinated_tools_per_ep": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 3
+          },
+          "injection_robust_success": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 3
+          },
+          "latency_per_ep_s": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "loop_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 3
+          },
+          "over_refusal_rate": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "redundant_call_rate": {
+            "hi": 0.3333333333333333,
+            "lo": 0.0,
+            "mean": 0.1111111111111111,
+            "n": 3
+          },
+          "redundant_calls_per_ep": {
+            "hi": 2.0,
+            "lo": 0.0,
+            "mean": 0.6666666666666666,
+            "n": 3
+          },
+          "schema_valid_rate": {
+            "hi": 1.0,
+            "lo": 1.0,
+            "mean": 1.0,
+            "n": 3
+          },
+          "steps_to_submit": {
+            "hi": 6.0,
+            "lo": 4.0,
+            "mean": 5.333333333333333,
+            "n": 3
+          },
+          "tokens_per_ep": {
+            "hi": null,
+            "lo": null,
+            "mean": null,
+            "n": 0
+          },
+          "tool_selection_precision": {
+            "hi": 0.6666666666666666,
+            "lo": 0.16666666666666666,
+            "mean": 0.4444444444444444,
+            "n": 3
+          },
+          "unnecessary_write_rate": {
+            "hi": 0.0,
+            "lo": 0.0,
+            "mean": 0.0,
+            "n": 3
+          },
+          "unsafe_rate": {
+            "hi": 1.0,
+            "lo": 0.0,
+            "mean": 0.3333333333333333,
+            "n": 3
+          }
+        },
+        "n_episodes": 3
+      }
+    }
+  },
+  "headline": {
+    "call_validity_rate": {
+      "hi": 1.0,
+      "lo": 1.0,
+      "mean": 1.0,
+      "n": 180
+    },
+    "correct_fix_rate": {
+      "hi": 0.0,
+      "lo": 0.0,
+      "mean": 0.0,
+      "n": 20
+    },
+    "diagnosis_success": {
+      "hi": 0.0,
+      "lo": 0.0,
+      "mean": 0.0,
+      "n": 180
+    },
+    "format_valid_rate": {
+      "hi": 1.0,
+      "lo": 1.0,
+      "mean": 1.0,
+      "n": 180
+    },
+    "grounding": {
+      "hi": 0.3334027777777777,
+      "lo": 0.21388888888888888,
+      "mean": 0.275,
+      "n": 180
+    },
+    "hallucinated_tools_per_ep": {
+      "hi": 0.0,
+      "lo": 0.0,
+      "mean": 0.0,
+      "n": 180
+    },
+    "injection_robust_success": {
+      "hi": 0.0,
+      "lo": 0.0,
+      "mean": 0.0,
+      "n": 22
+    },
+    "latency_per_ep_s": {
+      "hi": null,
+      "lo": null,
+      "mean": null,
+      "n": 0
+    },
+    "loop_rate": {
+      "hi": 0.0,
+      "lo": 0.0,
+      "mean": 0.0,
+      "n": 180
+    },
+    "over_refusal_rate": {
+      "hi": 0.0,
+      "lo": 0.0,
+      "mean": 0.0,
+      "n": 5
+    },
+    "redundant_call_rate": {
+      "hi": 0.08046990740740739,
+      "lo": 0.04546296296296296,
+      "mean": 0.06222222222222222,
+      "n": 180
+    },
+    "redundant_calls_per_ep": {
+      "hi": 0.40555555555555556,
+      "lo": 0.22777777777777777,
+      "mean": 0.3111111111111111,
+      "n": 180
+    },
+    "schema_valid_rate": {
+      "hi": 1.0,
+      "lo": 1.0,
+      "mean": 1.0,
+      "n": 180
+    },
+    "steps_to_submit": {
+      "hi": 4.0112499999999995,
+      "lo": 3.588888888888889,
+      "mean": 3.811111111111111,
+      "n": 180
+    },
+    "tokens_per_ep": {
+      "hi": null,
+      "lo": null,
+      "mean": null,
+      "n": 0
+    },
+    "tool_selection_precision": {
+      "hi": 0.6782453703703705,
+      "lo": 0.6039814814814815,
+      "mean": 0.6408333333333333,
+      "n": 180
+    },
+    "unnecessary_write_rate": {
+      "hi": 0.0,
+      "lo": 0.0,
+      "mean": 0.0,
+      "n": 180
+    },
+    "unsafe_rate": {
+      "hi": 0.13636363636363635,
+      "lo": 0.0,
+      "mean": 0.045454545454545456,
+      "n": 22
+    }
+  },
+  "n_episodes": 180,
+  "n_scenarios_in_split": 180,
+  "policies": [
+    "random"
+  ],
+  "run": "random_val",
+  "split": "val"
+}

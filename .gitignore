@@ -11,3 +11,4 @@ data/**/*.parquet
 .ruff_cache/
 *.egg-info/
 data/*/gold_*.jsonl
+results/auditkit/*.trajectories.jsonl

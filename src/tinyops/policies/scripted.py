@@ -178,7 +178,7 @@ def _phrasing(state: ClusterState, rng: random.Random) -> tuple[str, str]:
     elif ft == "pending_insufficient_memory":
         req = fp.resources.mem_request
         rc = [
-            f"The {app} pods are Pending because no node has enough free memory to satisfy their memory request ({req}).",
+            f"The {app} pods are Pending because there is not enough free memory on any node to satisfy their memory request ({req}).",
             f"Scheduling fails: insufficient memory on all nodes for the requested resources of {app} ({req}).",
             f"{app} cannot be scheduled because the cluster has insufficient memory for its {req} request.",
         ][k]
