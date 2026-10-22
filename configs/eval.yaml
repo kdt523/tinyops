@@ -1,0 +1,26 @@
+# Evaluation settings shared by run_eval and the Colab/Kaggle notebooks.
+seed: 1234
+max_steps: 8
+splits_val: [val]
+splits_test: [test, test_injection, test_ood]
+fewshot_k: 2
+
+tiny_aya:
+  model: CohereLabs/tiny-aya-global
+  max_new_tokens: 256
+  dtype: auto          # bfloat16 on L4/A100, float16 on T4
+  batch_size: 8        # T4: 8, L4: 16
+  load_in_4bit: false
+
+aya_expanse_8b:        # optional extra baseline
+  model: CohereLabs/aya-expanse-8b
+  max_new_tokens: 256
+  batch_size: 4
+  load_in_4bit: true   # needed on a 16 GB T4
+
+api:
+  # Name checked on ai.google.dev "Using the latest Gemini models" on 2026-10-22 (see DECISIONS.md).
+  model: gemini/gemini-3.6-flash
+  max_tokens: 1024     # 256 can be consumed by thinking tokens and return empty text
+  rpm: 60
+  extra: {}            # e.g. {reasoning_effort: low} if the provider supports it

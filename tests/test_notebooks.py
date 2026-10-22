@@ -1,0 +1,37 @@
+import importlib.util
+import json
+import re
+from pathlib import Path
+
+import pytest
+
+from tinyops.utils.paths import ROOT
+
+NOTEBOOKS = sorted((ROOT / "notebooks").glob("*.ipynb"))
+MODULE_RE = re.compile(r"-m (tinyops(?:\.\w+)+)")
+
+
+@pytest.mark.parametrize("path", NOTEBOOKS, ids=lambda p: p.name)
+def test_notebook_is_valid_and_calls_existing_modules(path: Path):
+    nb = json.loads(path.read_text(encoding="utf-8"))
+    assert nb["nbformat"] == 4 and nb["cells"]
+    code = ["".join(c["source"]) for c in nb["cells"] if c["cell_type"] == "code"]
+    assert code
+    for cell in code:
+        for module in MODULE_RE.findall(cell):
+            assert importlib.util.find_spec(module) is not None, module
+
+
+@pytest.mark.parametrize("path", NOTEBOOKS, ids=lambda p: p.name)
+def test_notebook_never_touches_test_data_for_trained_models(path: Path):
+    text = path.read_text(encoding="utf-8")
+    # an adapter on a test split needs --final; the baseline notebook must not pass an adapter at all
+    if "01_baselines" in path.name:
+        assert "--adapter" not in text and "--final" not in text
+
+
+def test_baselines_notebook_covers_the_required_runs():
+    text = (ROOT / "notebooks" / "01_baselines.ipynb").read_text(encoding="utf-8")
+    for needle in ("tinyaya_zeroshot_val", "tinyaya_fewshot_val", "test_injection", "test_ood",
+                   "verify", "baseline_findings", "tinyops-data"):
+        assert needle in text

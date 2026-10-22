@@ -23,5 +23,8 @@ allow-direct-references = true
 packages = ["src/tinyops"]
 [tool.ruff]
 line-length = 100
+extend-exclude = ["notebooks"]  # Colab cells use shell magics and handle Python < 3.12
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+addopts = "-m 'not slow'"
+markers = ["slow: needs a model download or GPU (run with -m slow)"]

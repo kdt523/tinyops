@@ -105,3 +105,20 @@ The first sanity run gave oracle success 96.1%: the pending-memory phrasing "no 
 
 ## 2026-10-22 — Untested piece: LLM-judge agreement
 `scoring/judge_check.py` is implemented and unit-untested against a real judge: it needs a Gemini key. The matcher/judge agreement rate is therefore NOT measured yet and METRICS.md says so.
+
+## 2026-10-22 — Closed-model name for the Gemini reference
+**Plan said:** default `gemini/gemini-2.5-flash`; look up the current name on the provider docs the day of use and record it (skill 5.3).
+**Source/reality:** web search on 2026-10-22: Google's "Using the latest Gemini models" page (https://ai.google.dev/gemini-api/docs/latest-model) lists `gemini-3.6-flash` as generally available; the English models page (https://ai.google.dev/models) still showed 3.5 Flash as newest, so the sources are not fully consistent. 3.6 Flash defaults to a medium thinking level.
+**Decision:** `configs/eval.yaml` uses `gemini/gemini-3.6-flash` with `max_tokens: 1024` (thinking tokens count against `max_tokens` and a 256 budget can return empty text). `APIPolicy(extra=...)` forwards provider kwargs. **Unverified until the first real call with a key**; if LiteLLM rejects the name, fall back to the newest name its `model_cost` map knows and record it here.
+
+## 2026-10-22 — HFPolicy details verified on a small model
+`HFPolicy` was exercised end to end with `SmolLM2-135M-Instruct` (batched left-padded greedy generation, JSON-complete stopping, token usage) on the local GPU via WSL (`pytest -m slow`). Not yet run with Tiny Aya (gated, needs the human's token and a bigger GPU). transformers >= 5 takes `dtype=`, older versions `torch_dtype=`; the policy picks by version.
+
+## 2026-10-22 — Notebooks are excluded from ruff
+Colab cells use `!`/`%` magics and must run on runtimes older than 3.12 (ruff flags that branch as outdated). `[tool.ruff] extend-exclude = ["notebooks"]`; notebooks are instead checked by `tests/test_notebooks.py` (valid JSON, every `-m tinyops.*` module exists, no adapter/--final in the baseline notebook).
+
+## 2026-10-22 — Parser is stricter than AgentTune's
+`policies/parsing.py` never repairs malformed JSON and refuses to let a valid inner object leak out of a malformed outer list (missing comma, truncated output, trailing comma). AgentTune's `_extract_tool_calls` (`rollout_factory.py:1077`) is lenient (tolerant JSON scan, many formats). Expect different parse-failure rates between TinyOps evaluation and AgentTune GRPO rollouts; measure and record it in skill 7.
+
+## 2026-10-22 — Skill 5 status
+Done and unit-tested on CPU: parser (33 cases), HFPolicy (verified on SmolLM2-135M), APIPolicy (fake provider), few-shot builder, batched resumable runner with manifest/compute log/metrics, failure-mode report generator, notebook. NOT done (needs the human's HF token + a GPU, and a Gemini key): the actual Tiny Aya and Gemini baseline runs, therefore `docs/BASELINE_FINDINGS.md` and the HF dataset upload do not exist yet. No baseline number has been invented.

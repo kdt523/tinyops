@@ -12,6 +12,7 @@ from tinyops.scenarios.build_dataset import (
     build_split,
     plan_split,
     sub_seed,
+    verify_test_hashes,
     write_splits,
 )
 from tinyops.scenarios.failure_types import FAILURE_TYPE_NAMES
@@ -136,3 +137,23 @@ def test_tampered_test_file_detected(built_data, tmp_path):
 
 def test_all_splits_listed():
     assert SPLITS == ("train", "val", "test", "test_injection", "test_ood")
+
+
+def test_verify_test_hashes(built_data, tmp_path):
+    assert len(verify_test_hashes(built_data)) == 3
+    out = tmp_path / "d"
+    shutil.copytree(built_data, out)
+    with open(out / "test" / "scenarios.jsonl", "a") as f:
+        f.write(" ")
+    with pytest.raises(ValueError, match="do not match"):
+        verify_test_hashes(out)
+    (out / "TEST_HASHES.txt").unlink()
+    with pytest.raises(FileNotFoundError):
+        verify_test_hashes(out)
+
+
+def test_committed_test_hashes_match_repo_data():
+    from tinyops.utils.paths import DATA
+
+    if (DATA / "TEST_HASHES.txt").exists():
+        verify_test_hashes(DATA)

@@ -171,6 +171,65 @@ class KubeSimEnv:
             self.termination = "max_steps"
 
 
+class EpisodeSession:
+    """One episode in progress: the chat messages plus a KubeSimEnv. Shared by all runners."""
+
+    def __init__(
+        self,
+        state: ClusterState,
+        alert_text: str,
+        policy_name: str,
+        max_steps: int = 8,
+        seed: int = 1234,
+        scenario_id: str = "adhoc",
+        meta: dict | None = None,
+    ) -> None:
+        from tinyops.policies.prompt import PROMPT_VERSION, build_system_prompt
+
+        self.env = KubeSimEnv(state, max_steps=max_steps, alert_text=alert_text)
+        self.messages: list[dict] = [
+            {"role": "system", "content": build_system_prompt()},
+            {"role": "user", "content": self.env.reset()},
+        ]
+        self.policy_name, self.seed, self.scenario_id = policy_name, seed, scenario_id
+        self.alert_text = alert_text
+        self.meta = {"prompt_version": PROMPT_VERSION, "max_steps": max_steps, **(meta or {})}
+        self.error: str | None = None
+
+    @property
+    def done(self) -> bool:
+        return self.env.done or self.error is not None
+
+    def apply(self, out) -> StepRecord:
+        """Feed one PolicyOutput: record the turn and append the observation if not finished."""
+        from tinyops.policies.prompt import format_tool_result
+
+        self.messages.append({"role": "assistant", "content": out.text})
+        obs, done, rec = self.env.step(out.tool_call, out.text)
+        rec.latency_s = out.usage.get("latency_s")
+        rec.prompt_tokens = out.usage.get("prompt_tokens")
+        rec.completion_tokens = out.usage.get("completion_tokens")
+        if not done:
+            self.messages.append(
+                {"role": "user", "content": format_tool_result(rec.tool_name or "parser", obs)}
+            )
+        return rec
+
+    def fail(self, exc: Exception) -> None:
+        self.error = f"{type(exc).__name__}: {exc}"
+
+    def episode(self) -> Episode:
+        meta = dict(self.meta)
+        if self.error:
+            meta["policy_error"] = self.error
+        return Episode(
+            scenario_id=self.scenario_id, policy_name=self.policy_name, seed=self.seed,
+            alert_text=self.alert_text, steps=self.env.steps, diagnosis=self.env.diagnosis,
+            termination="policy_error" if self.error else self.env.termination,
+            tool_outputs_seen=list(self.env.observations), meta=meta,
+        )
+
+
 def run_episode(
     state: ClusterState,
     policy: Policy,
@@ -180,41 +239,15 @@ def run_episode(
     scenario_id: str = "adhoc",
 ) -> Episode:
     """Loop: build messages -> policy.act -> env.step -> append observation."""
-    from tinyops.policies.prompt import PROMPT_VERSION, build_system_prompt, format_tool_result
-
-    env = KubeSimEnv(state, max_steps=max_steps, alert_text=alert_text)
-    messages = [
-        {"role": "system", "content": build_system_prompt()},
-        {"role": "user", "content": env.reset()},
-    ]
-    termination = None
-    while not env.done:
-        try:
-            out = policy.act(messages)
-        except Exception as e:  # noqa: BLE001 - a crashing policy ends the episode, not the run
-            termination = "policy_error"
-            error = f"{type(e).__name__}: {e}"
-            break
-        messages.append({"role": "assistant", "content": out.text})
-        obs, done, rec = env.step(out.tool_call, out.text)
-        rec.latency_s = out.usage.get("latency_s")
-        rec.prompt_tokens = out.usage.get("prompt_tokens")
-        rec.completion_tokens = out.usage.get("completion_tokens")
-        if not done:
-            messages.append(
-                {"role": "user", "content": format_tool_result(rec.tool_name or "parser", obs)}
-            )
-    meta = {"prompt_version": PROMPT_VERSION, "max_steps": max_steps}
-    if termination == "policy_error":
-        meta["policy_error"] = error
-    return Episode(
-        scenario_id=scenario_id,
-        policy_name=getattr(policy, "name", type(policy).__name__),
-        seed=seed,
-        alert_text=alert_text,
-        steps=env.steps,
-        diagnosis=env.diagnosis,
-        termination=termination or env.termination,
-        tool_outputs_seen=list(env.observations),
-        meta=meta,
+    session = EpisodeSession(
+        state, alert_text, getattr(policy, "name", type(policy).__name__), max_steps, seed,
+        scenario_id,
     )
+    while not session.done:
+        try:
+            out = policy.act(session.messages)
+        except Exception as e:  # noqa: BLE001 - a crashing policy ends the episode, not the run
+            session.fail(e)
+            break
+        session.apply(out)
+    return session.episode()

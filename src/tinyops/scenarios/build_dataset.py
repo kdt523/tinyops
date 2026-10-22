@@ -169,6 +169,24 @@ def write_splits(
     return new_hashes
 
 
+def verify_test_hashes(data: Path = DATA) -> dict[str, str]:
+    """Check data/TEST_HASHES.txt against the files on disk. Raises on any mismatch."""
+    locked = read_hash_file(data)
+    if not locked:
+        raise FileNotFoundError(f"{data / HASH_FILE} is missing or empty")
+    expected = {f"data/{s}/scenarios.jsonl" for s in TEST_SPLITS}
+    if set(locked) != expected:
+        raise ValueError(f"{HASH_FILE} must list exactly {sorted(expected)}, found {sorted(locked)}")
+    bad = []
+    for rel, digest in locked.items():
+        path = data / rel.removeprefix("data/")
+        if not path.exists() or sha256_file(path) != digest:
+            bad.append(rel)
+    if bad:
+        raise ValueError(f"locked test files do not match {HASH_FILE}: {bad}")
+    return locked
+
+
 def _fail(msg: str) -> int:
     log.error(msg)
     return 1
@@ -220,6 +238,17 @@ def gold(
         raise typer.BadParameter("gold trajectories are only produced for train and val")
     for s in ("train", "val") if split == "all" else (split,):
         run_gold(s, seed, data)
+
+
+@app.command()
+def verify(data: Annotated[Path, typer.Option(help="Data directory")] = DATA) -> None:
+    """Verify the locked test splits against data/TEST_HASHES.txt (exit 1 on mismatch)."""
+    try:
+        locked = verify_test_hashes(data)
+    except (FileNotFoundError, ValueError) as e:
+        log.error("%s", e)
+        raise typer.Exit(1) from e
+    log.info("TEST_HASHES.txt verified for %d files", len(locked))
 
 
 if __name__ == "__main__":
