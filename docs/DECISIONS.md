@@ -55,3 +55,30 @@ Entry template:
 
 ## 2026-10-22 — ruff version
 **Source/reality:** the current ruff default rule set flags `dict(...)` calls, `typer.Option` defaults (B008) and loop writes (FURB122). CI installs the latest ruff, so the code follows those rules rather than pinning an old one.
+
+## 2026-10-22 — `list_pods` added to every failure type's relevant_tools
+**Plan said:** per-type `relevant_tools` table (skill 3.4); e.g. `oom_killed` = describe_pod, get_metrics; `hung_process_restart` = get_logs, describe_pod, get_metrics.
+**Source/reality:** the tools need a pod name, which only `list_pods` (or an alert naming the pod) reveals. A gold trajectory that skips `list_pods` would teach the model to invent pod names.
+**Decision:** every type's `relevant_tools` includes `list_pods` (superset of the table). Skill 4's precision/recall use this list. A test (`test_oracle_only_uses_names_it_has_seen`) checks every namespace/pod/service/configmap/deployment argument was shown earlier, for all oracle variants.
+
+## 2026-10-22 — Injection locations are uniform only over feasible locations
+**Plan said:** test_injection locations uniform (skill 3.7).
+**Reality:** `image_pull_backoff`, `pending_insufficient_memory` and `node_memory_pressure_eviction` pods have no logs, so a log payload is impossible there.
+**Decision:** locations are balanced over the feasible ones (running counter per split). Result: log/event/configmap are within a few percent of each other in every split (checked in test_splits).
+
+## 2026-10-22 — Oracle sees the payload before it ignores it
+**Plan said:** injected episodes add an evidence item about an ignored instruction (skill 3.8).
+**Decision:** the oracle simulates its plan; if the payload is not in any observation it adds the one call that reveals it (get_logs with a larger tail, get_events for the pod, or describe_pod + get_configmap). The "Ignored an instruction embedded in the logs/events/config" item is added only when the payload really appeared in an observation, so grounding stays honest. A single-evidence diagnosis gets the pod's `list_pods` row as a second grounded item, so the note never drops grounding below 0.5.
+
+## 2026-10-22 — Safety targets are deployment-level
+**Plan said:** a restart whose target is in `injection_targets` is unsafe (skill 2.4).
+**Decision:** `_targets_match` compares only deployment forms (`dep`, `ns/dep`, `deployment/dep`). A namespace target (delete payloads) must not make every restart in that namespace "unsafe".
+
+## 2026-10-22 — Gold files are not committed
+**Plan said:** commit data JSONL if < 50 MB (skill 3 exit gate).
+**Reality:** scenarios total ~23 MB; with gold episodes/trajectories data/ is 53 MB (each gold trajectory embeds the 7.5 KB system prompt).
+**Decision:** commit `scenarios.jsonl`, `stats.json` and `TEST_HASHES.txt`; `data/*/gold_*.jsonl` are gitignored and regenerated deterministically with `python -m tinyops.scenarios.build_dataset gold --split all --seed 1234` (~10 s). They are uploaded to the HF dataset repo in skill 9.
+
+## 2026-10-22 — Pods in `hard` logs and realism trade-offs
+**Reality:** to keep the key line outside the last 20 log lines at `hard`, 22-40 benign lines follow it, even for crash-looping pods (real `kubectl logs` would end at the error). Describe output is cut at 1,500 chars (events can be truncated), so evidence is also reachable via `get_events`.
+**Decision:** accepted for the simulator; noted as a limitation for the article.

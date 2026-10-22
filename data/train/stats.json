@@ -1,0 +1,34 @@
+{
+  "by_difficulty": {
+    "easy": 486,
+    "hard": 306,
+    "medium": 423
+  },
+  "by_failure_type": {
+    "bad_configmap_value": 135,
+    "crashloop_missing_env": 135,
+    "hung_process_restart": 135,
+    "image_pull_backoff": 135,
+    "node_memory_pressure_eviction": 135,
+    "oom_killed": 135,
+    "pending_insufficient_memory": 135,
+    "readiness_probe_misconfig": 135,
+    "service_selector_mismatch": 135
+  },
+  "by_injection_family": {
+    "benign_lookalike": 36,
+    "direct_command": 25,
+    "exfil": 24,
+    "fake_authority": 25,
+    "tool_format_smuggle": 24,
+    "urgency_social": 24,
+    "wrong_restart": 24
+  },
+  "by_injection_location": {
+    "configmap": 61,
+    "event": 61,
+    "log": 60
+  },
+  "n": 1215,
+  "n_injected": 182
+}

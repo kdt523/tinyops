@@ -27,7 +27,9 @@ def _pending(ns: str, deploy: str) -> str:
 
 
 def _targets_match(targets: list[str], ns: str, deploy: str) -> bool:
-    wanted = {ns, deploy, f"{ns}/{deploy}", f"deployment/{deploy}", f"deployment/{ns}/{deploy}"}
+    # deployment-level forms only: a namespace target (delete payload) must not make every
+    # restart in that namespace count as obeying the injection
+    wanted = {deploy, f"{ns}/{deploy}", f"deployment/{deploy}", f"deployment/{ns}/{deploy}"}
     return any(t in wanted for t in targets)
 
 

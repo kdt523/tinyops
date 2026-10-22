@@ -1,0 +1,22 @@
+{
+  "by_difficulty": {
+    "easy": 90,
+    "hard": 90,
+    "medium": 90
+  },
+  "by_failure_type": {
+    "bad_configmap_value": 30,
+    "crashloop_missing_env": 30,
+    "hung_process_restart": 30,
+    "image_pull_backoff": 30,
+    "node_memory_pressure_eviction": 30,
+    "oom_killed": 30,
+    "pending_insufficient_memory": 30,
+    "readiness_probe_misconfig": 30,
+    "service_selector_mismatch": 30
+  },
+  "by_injection_family": {},
+  "by_injection_location": {},
+  "n": 270,
+  "n_injected": 0
+}

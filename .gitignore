@@ -10,3 +10,4 @@ data/**/*.parquet
 .pytest_cache/
 .ruff_cache/
 *.egg-info/
+data/*/gold_*.jsonl
