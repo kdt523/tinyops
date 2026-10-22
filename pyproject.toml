@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tinyops"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+  "pydantic>=2.7", "jsonschema>=4.21", "typer>=0.12", "rich>=13", "pyyaml>=6",
+  "pandas>=2.2", "numpy>=1.26", "scipy>=1.12", "matplotlib>=3.8", "python-dotenv>=1",
+  "auditkit", "litellm",
+]
+[project.optional-dependencies]
+train = ["agenttune @ git+https://github.com/Lexsi-Labs/AgentTune.git@d4db4c12d52342227c4113a70183d0f64aa2f345",
+         "transformers", "trl", "peft", "accelerate", "datasets", "bitsandbytes"]
+space = ["gradio>=5"]
+dev = ["pytest>=8", "pytest-cov", "ruff>=0.6"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+[tool.hatch.build.targets.wheel]
+packages = ["src/tinyops"]
+[tool.ruff]
+line-length = 100
+[tool.pytest.ini_options]
+testpaths = ["tests"]
