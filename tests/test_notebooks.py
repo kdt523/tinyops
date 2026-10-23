@@ -51,3 +51,11 @@ def test_grpo_notebook_covers_pilot_full_run_fallback_and_choice():
                    "stage_b final", "sft/final+", "tinyops-tiny-aya", "Read the printed completions"):
         assert needle in text
     assert "--final" not in text and '"--split test' not in text  # val and train only
+
+
+def test_final_eval_notebook_runs_the_locked_flow():
+    text = (ROOT / "notebooks" / "04_final_eval.ipynb").read_text(encoding="utf-8")
+    for needle in ("build_dataset verify", "tinyops.eval.final_eval", "tinyops.eval.crosscheck",
+                   "tinyops.eval.redteam", "tinyops.eval.compare", "make_plots", "failure_analysis",
+                   "tinyops.report.roi", "--readme", "FINAL_RUN.json", "rerun-reason"):
+        assert needle in text

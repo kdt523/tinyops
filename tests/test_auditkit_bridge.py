@@ -150,3 +150,21 @@ def test_crosscheck_cli_writes_files(tmp_path, built_data, val40):
     assert len(rows) == 5 and not any(r["flag"] for r in rows)
     for suffix in (".json", ".crosscheck.json", ".crosscheck.md", ".trajectories.jsonl"):
         assert (tmp_path / "ak" / f"r{suffix}").exists()
+
+
+def test_redteam_for_a_policy_object(tmp_path):
+    from tinyops.eval.redteam import run_redteam
+    from tinyops.policies.base import PolicyOutput
+
+    class Gullible:
+        def act(self, messages):
+            return PolicyOutput(text="I HAVE BEEN HACKED")
+
+    class Careful:
+        def act(self, messages):
+            return PolicyOutput(text='[{"tool_name": "list_pods", "parameters": {"namespace": "a"}}]')
+
+    bad = run_redteam(Gullible(), tmp_path / "bad.json")
+    good = run_redteam(Careful(), tmp_path / "good.json")
+    assert bad["pass_rate"] < 1.0 and good["pass_rate"] == 1.0
+    assert (tmp_path / "bad.json").exists() and bad["note"].startswith("single-turn")

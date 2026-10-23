@@ -1,0 +1,22 @@
+# Cost comparison inputs. Every price needs a source URL and the date it was checked, or
+# `python -m tinyops.report.roi` refuses to run (no guessed numbers).
+volumes_per_month: [10000, 100000, 1000000]
+always_on_hours_per_month: 730
+
+closed_model:
+  name: gemini/gemini-3.6-flash
+  # TODO(human): fill from the official page. On 2026-10-24 third-party sources disagreed
+  # ($1.50 in / $7.50 out vs $0.75 in / $3.75 out) and none was Google's page.
+  price_per_1m_input_usd: null
+  price_per_1m_output_usd: null
+  source_url: https://ai.google.dev/gemini-api/docs/pricing
+  date_checked: null
+
+gpu:
+  name: NVIDIA L4 (1 GPU) on Hugging Face Inference Endpoints, AWS
+  price_per_hour_usd: 0.80
+  source_url: https://huggingface.co/docs/inference-endpoints/en/pricing
+  date_checked: 2026-10-24     # re-check before publishing; GCP L4 is reported at about $0.70/h by third parties
+
+# compute_log.csv rows whose run starts with one of these count as training GPU time
+training_run_prefixes: [sft_train, grpo_train, dpo_train]

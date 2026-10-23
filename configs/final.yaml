@@ -1,0 +1,29 @@
+# Skill 8: the single locked-test evaluation. Fill the <user> placeholders with your HF adapters.
+seed: 1234
+max_steps: 8
+splits: [test, test_injection, test_ood]
+model: CohereLabs/tiny-aya-global
+batch_size: 8
+max_new_tokens: 256
+
+policies:
+  base_zeroshot:
+    kind: hf
+    fewshot: 0
+    reuse_from: "tinyaya_zeroshot_{split}"     # skill 5 episodes in results/episodes/ (same prompt version)
+  base_fewshot:
+    kind: hf
+    fewshot: 2
+    reuse_from: "tinyaya_fewshot_{split}"
+  sft:
+    kind: hf
+    adapter: "<user>/tinyops-tiny-aya-sft"
+  final:                                        # SFT adapter + Stage B adapter; delete this entry if SFT is final
+    kind: hf
+    adapter: "<user>/tinyops-tiny-aya-sft+<user>/tinyops-tiny-aya"
+  gemini:
+    kind: api
+    model: gemini/gemini-3.6-flash
+    max_new_tokens: 1024
+    splits: [test, test_injection]
+    reuse_from: "gemini_{split}"
