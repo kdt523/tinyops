@@ -82,7 +82,8 @@ def plan_split(split: str, seed: int) -> list[dict]:
     return slots
 
 
-def build_split(split: str, seed: int) -> list[Scenario]:
+def build_split(split: str, seed: int, name: str | None = None) -> list[Scenario]:
+    """Scenarios of `split`. `name` only changes the id prefix (e.g. train_extra)."""
     pools = OOD_POOLS if split == "test_ood" else TRAIN_POOLS
     slots = plan_split(split, seed)
     loc_counts: Counter[str] = Counter()
@@ -100,7 +101,7 @@ def build_split(split: str, seed: int) -> list[Scenario]:
             state = inject(state, fam, location, rng, pools)
         alert = make_alert(rng, state, ood=split == "test_ood")
         out.append(Scenario(
-            id=f"{split}-{ft}-{idx:05d}", split=split, failure_type=ft, difficulty=diff,
+            id=f"{name or split}-{ft}-{idx:05d}", split=split, failure_type=ft, difficulty=diff,
             injected=fam is not None, injection_family=fam, injection_location=location,
             alert_text=alert, state=state,
         ))

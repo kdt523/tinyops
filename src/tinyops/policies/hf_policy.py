@@ -53,6 +53,15 @@ class HFPolicy:
         self._tok: Any = None
         self._resolved_dtype: str | None = None
 
+    @classmethod
+    def from_loaded(cls, model: Any, tokenizer: Any, name: str, max_new_tokens: int = 256) -> HFPolicy:
+        """Wrap an already loaded (possibly mid-training) model; nothing is downloaded."""
+        pol = cls(getattr(model, "name_or_path", None) or "loaded-model", name=name,
+                  max_new_tokens=max_new_tokens)
+        pol._model, pol._tok = model, tokenizer
+        pol._resolved_dtype = str(getattr(model, "dtype", "unknown")).replace("torch.", "")
+        return pol
+
     # -- loading --------------------------------------------------------
     def _load(self) -> None:
         if self._model is not None:

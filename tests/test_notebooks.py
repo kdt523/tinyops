@@ -35,3 +35,11 @@ def test_baselines_notebook_covers_the_required_runs():
     for needle in ("tinyaya_zeroshot_val", "tinyaya_fewshot_val", "test_injection", "test_ood",
                    "verify", "baseline_findings", "tinyops-data"):
         assert needle in text
+
+
+def test_sft_notebook_covers_training_selection_and_publishing():
+    text = (ROOT / "notebooks" / "02_sft.ipynb").read_text(encoding="utf-8")
+    for needle in ("tinyops.train.sft", "sft_selection.json", "sft_val", "model_card", "verify",
+                   "gold --split all", "--adapter", "tinyops-tiny-aya-sft"):
+        assert needle in text
+    assert "--final" not in text and "test_injection" not in text  # val only

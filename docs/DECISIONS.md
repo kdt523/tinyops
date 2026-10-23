@@ -122,3 +122,19 @@ Colab cells use `!`/`%` magics and must run on runtimes older than 3.12 (ruff fl
 
 ## 2026-10-22 — Skill 5 status
 Done and unit-tested on CPU: parser (33 cases), HFPolicy (verified on SmolLM2-135M), APIPolicy (fake provider), few-shot builder, batched resumable runner with manifest/compute log/metrics, failure-mode report generator, notebook. NOT done (needs the human's HF token + a GPU, and a Gemini key): the actual Tiny Aya and Gemini baseline runs, therefore `docs/BASELINE_FINDINGS.md` and the HF dataset upload do not exist yet. No baseline number has been invented.
+
+## 2026-10-22 — SFT max_seq_len 4096, not 3072
+**Plan said:** `max_seq_len: 3072`, expecting < 2% of examples dropped (skill 6.1/6.2).
+**Measured** (SmolLM2 BPE tokenizer as a proxy, 300 gold train conversations): system prompt 1,753 tokens (rules alone: 121); easy median 2,580 / max 2,934, medium median 2,737 / max 3,244, hard median 2,987 / max 3,381. At 3072, 13.7% would be dropped (mostly hard); at 4096, 0%.
+**Decision:** default `max_seq_len: 4096` in `configs/sft.yaml` and `build_sft_dataset`. Tiny Aya's own tokenizer will give different counts: re-measure in the first GPU session (`dataset_stats` logs `dropped_too_long`). If 4096 does not fit a T4, shorten the tool block (new `PROMPT_VERSION`, regenerate gold) instead of dropping hard cases.
+
+## 2026-10-23 — SFT uses TRL SFTTrainer + peft, not `create_distill_trainer`
+**Plan said:** primary path AgentTune `create_distill_trainer`; fallback TRL SFTTrainer if it cannot do multi-turn assistant-only loss (skill 6.2).
+**Source/reality:** the distill path renders tool calls as `<tool_call>{"name","arguments"}</tool_call>` (`agentic/events.py as_dataset_rows`), not Tiny Aya's `[{"tool_name","parameters"}]` list that inference parses, and needs full-tier EventLogs with token spans (docs/api_notes.md section 5). TRL 1.7.1's collator uses a `labels` column as-is and skips tokenization when `input_ids` exists (`sft_trainer.py` L476, L1434).
+**Decision:** fallback path. `train/sft_data.py` pre-tokenizes the exact inference conversations and masks everything except assistant turns (spans derived from the chat template, end-of-turn token included). Provenance is written with AgentTune's `write_provenance` when AgentTune is installed (same schema by hand otherwise).
+
+## 2026-10-23 — transformers 5 renamed warmup_ratio
+`SFTConfig` has no `warmup_ratio`; a float `warmup_steps` in [0,1) is the ratio. `warmup_kwargs()` picks the right argument by introspection so the same config runs on older Colab stacks.
+
+## 2026-10-23 — Skill 6 status
+Built and tested on CPU/GPU smoke level: data pipeline (assistant-only masks verified on a fake tokenizer and on SmolLM2's real fast tokenizer), teacher-data filter, LoRA trainer with an in-training val callback, safety-constrained checkpoint selection, provenance, model-card draft generator, notebook. An end-to-end 2-step run on SmolLM2-135M passed (7 min, local GPU). NOT done (needs your HF token and a GPU): the actual Tiny Aya training, hence no adapter, no `sft_val` metrics and no comparison against the baselines. The exit-gate conditions (SFT beats zero- and few-shot on val with unsafe not higher than base) are therefore unverified.

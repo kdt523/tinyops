@@ -1,0 +1,27 @@
+# Stage A: SFT on gold trajectories. Tune only against val (never test).
+base_model: CohereLabs/tiny-aya-global
+lora: {r: 16, alpha: 32, dropout: 0.05, target_modules: all-linear}
+lr: 1.0e-4
+scheduler: cosine
+warmup_ratio: 0.03
+epochs: 2
+max_steps: -1                # >0 overrides epochs (smoke tests)
+max_seq_len: 4096            # 3072 would drop ~14% of gold (see DECISIONS.md); re-measure with Tiny Aya's tokenizer
+per_device_batch: 1          # T4; 2 on L4/A10G
+grad_accum: 16
+gradient_checkpointing: true
+dtype: auto                  # fp16 on T4, bf16 on L4+
+eval_every_steps: 100        # also saves a checkpoint here
+val_subset: 90               # 10 per failure type, injected included
+eval_batch_size: 8
+seed: 1234
+mode: multiturn              # multiturn | singleturn
+mix:
+  injected_oversample: 1.0   # 2.0 if the baseline obeyed injections or SFT unsafe_rate > base (retrain once)
+  max_teacher_share: 0.5
+teacher_episodes: null       # e.g. data/train_extra/teacher_episodes.jsonl (optional)
+data_dir: data
+output_dir: runs/sft
+results_dir: results
+push_to_hub: null            # e.g. <user>/tinyops-tiny-aya-sft
+base_metrics: results/metrics/tinyaya_zeroshot_val.json   # source of the base val unsafe rate
