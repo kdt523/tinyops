@@ -138,3 +138,31 @@ Done and unit-tested on CPU: parser (33 cases), HFPolicy (verified on SmolLM2-13
 
 ## 2026-10-23 — Skill 6 status
 Built and tested on CPU/GPU smoke level: data pipeline (assistant-only masks verified on a fake tokenizer and on SmolLM2's real fast tokenizer), teacher-data filter, LoRA trainer with an in-training val callback, safety-constrained checkpoint selection, provenance, model-card draft generator, notebook. An end-to-end 2-step run on SmolLM2-135M passed (7 min, local GPU). NOT done (needs your HF token and a GPU): the actual Tiny Aya training, hence no adapter, no `sft_val` metrics and no comparison against the baselines. The exit-gate conditions (SFT beats zero- and few-shot on val with unsafe not higher than base) are therefore unverified.
+
+## 2026-10-24 — Rewards are computed by replaying the rollout through the strict KubeSim env
+**Plan said:** each reward reconstructs the episode "from the rollout env log or the conversation in kwargs" and reuses TinyScore (skill 7.3).
+**Source/reality:** TRL/AgentTune hand rewards `trajectories` / `conversations` as same-length lists (docs/api_notes.md section 12). Pairing a global env log with those lists would depend on call order.
+**Decision:** `scoring/rewards.py` replays the assistant turns (step.thought + final_response) through `EpisodeSession` with the strict parser and scores with `match_diagnosis` / `score_episode`. A reward is a pure function of (turns, scenario); the tools' state is not read. The reward therefore equals what TinyScore would say about that transcript. A turn only AgentTune's lenient parser could read counts as unparseable.
+
+## 2026-10-24 — Reward deviations from the plan table (all in `scoring/rewards.py`, all tested)
+- `r_format`: an unparseable turn costs 0.2 when it is a broken call (malformed/invalid structure) but **0.3 when it is prose**. With the plan's flat 0.2 a malformed call and a prose answer score identically, which the must-have test (correct > malformed > missing, three different scores) forbids.
+- `r_efficiency`: −0.1 per tool call made **after** a valid `submit_diagnosis` (AgentTune's loop does not stop on submit, so this bounds wasted rollout tokens). Floor −1.0.
+- `r_safety`: stacks as in the table (−2.0 unsafe, −0.5 per unnecessary write, +0.2 correct fix). "Delete scores below every non-unsafe completion" is guaranteed only against realistic completions (perfect-diagnosis-plus-delete = −0.78 vs worst realistic safe completion −0.15..+0.7); it is not a mathematical guarantee against, say, three stacked unnecessary restarts. Documented here instead of reweighting.
+- Components are returned as floats and logged through TRL's `log_metric` as `reward/<name>` and to `results/train_logs/grpo_rewards.jsonl` (needed because `combine_rewards` only sees one combined number).
+
+## 2026-10-24 — Rollout wiring: custom `rollout_func`, tools bound by a pre-step hook
+**Plan said:** `ContextVar` or a scenario tag in the prompt "only if nothing better exists" (skill 7.2).
+**Decision:** the dataset prompt is just the alert; `train/rollout_env.py` identifies the scenario from the alert text in `pre_step_hook(0, conversation, tools)` (alert texts are unique in `data/train_rl`, enforced by `ScenarioRegistry` and `build_rl_scenarios`) and binds a `KubeSimEnv` in a ContextVar (module-level fallback). No "Incident ID" text is added, so the training prompt is identical to the inference prompt. Tools are `*args/**kwargs` wrappers with `__signature__` copied from the typed callables: AgentTune's schema generation is unchanged (tested against `transformers.get_json_schema` and AgentTune's `_build_tool_schema`) and bad arguments return KubeSim's error text, not a Python TypeError. Tested: observations equal the evaluation environment's for the same calls; 8 concurrent rollouts never share state.
+**Known gap:** AgentTune answers unknown tool names itself (`Tool 'x' not found`), so that one observation text differs from evaluation.
+
+## 2026-10-24 — Stage B starts from the SFT adapter merged into the base
+`train/merge.py` writes base+SFT to `runs/sft_merged`; GRPO/DPO train a new LoRA on top so the KL reference (adapter off) is the SFT policy, not the base. The final Stage B model is therefore two adapters: load with `HFPolicy(adapter="sft_path+stage_b_path")` (earlier adapters are merged in order, the last stays unmerged). `--adapter a+b` works in `run_eval`.
+
+## 2026-10-24 — Callbacks must be constructor kwargs
+`create_agentic_trainer(...).trainer` is `None` until `.train()` calls `setup_trainer`, so validation/peek callbacks are passed as `callbacks=[...]` (routed to the TRL trainer by AgentTune's kwarg split). Found by the smoke test, not by reading.
+
+## 2026-10-24 — DPO fallback is turn-level
+AgentTune's agentic DPO is offline `prompt/chosen/rejected` (plus rollout modes we do not use). `train/dpo.py` builds one pair per failed train scenario at the **first divergence** from the gold episode (identical conversation prefix), prioritising obeyed injections, loops, malformed turns, then wrong answers; train scenarios only. Limitation: policies that fail from turn 0 produce mostly first-turn pairs.
+
+## 2026-10-24 — Skill 7 status
+Built and tested: reward functions (18 tests incl. the three-different-scores, stuffed-submit, delete, redundancy and restart tests), per-rollout environment (12 tests), RL data builder (30/40/30 difficulty, 20% injected, failure types weighted by SFT weakness, unique alerts), merge helper, GRPO and DPO trainers, Stage B selection / go-no-go / final-model rules with a CLI, notebook. **Verified end to end on SmolLM2-135M through AgentTune** (`pytest -m slow tests/test_grpo_smoke.py`, ~5 min on the local GPU): 3 GRPO steps, every rollout bound to its scenario (0 unbound), rewards called with `scenario_id` + `trajectories`, trajectories/reward logs/val curve/selection written. NOT done (needs the SFT adapter, a GPU and your token): the pilot, reading the pilot completions for reward hacking, the 300-step run, the go/no-go on real val numbers. No Stage B result exists yet.

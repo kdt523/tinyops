@@ -22,6 +22,14 @@ def fewshot_messages(episodes: list[Episode]) -> list[dict]:
     return out
 
 
+def split_adapters(spec: str) -> list[str]:
+    """`a+b` -> ["a", "b"] (a path or hub id never contains '+')."""
+    parts = [p.strip() for p in spec.split("+") if p.strip()]
+    if not parts:
+        raise ValueError(f"empty adapter spec {spec!r}")
+    return parts
+
+
 def splice_fewshot(messages: list[dict], shots: list[dict]) -> list[dict]:
     """[system] + few-shot turns + the real conversation."""
     if not shots:
@@ -46,7 +54,7 @@ class HFPolicy:
         self._shots = fewshot_messages(self.fewshot)
         base = model_id.rsplit("/", 1)[-1]
         self.name = name or "-".join(
-            [base] + ([adapter.rstrip("/").rsplit("/", 1)[-1]] if adapter else [])
+            [base] + ([split_adapters(adapter)[-1].rstrip("/").rsplit("/", 1)[-1]] if adapter else [])
             + ([f"fewshot{len(self.fewshot)}"] if self.fewshot else ["zeroshot"])
         )
         self._model: Any = None
@@ -96,7 +104,12 @@ class HFPolicy:
         if self.adapter:
             from peft import PeftModel
 
-            model = PeftModel.from_pretrained(model, self.adapter)  # kept unmerged for eval
+            # "sft_adapter+grpo_adapter": earlier adapters are merged in order (Stage B was trained
+            # on the merged SFT model); the last stays an unmerged adapter
+            *merge, last = split_adapters(self.adapter)
+            for a in merge:
+                model = PeftModel.from_pretrained(model, a).merge_and_unload()
+            model = PeftModel.from_pretrained(model, last)
         model.eval()
         self._model, self._tok = model, tok
         log.info("loaded %s (adapter=%s, dtype=%s, 4bit=%s)", self.model_id, self.adapter,

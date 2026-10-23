@@ -141,3 +141,32 @@ def write_selection(curve_path: Path, out: Path, base_unsafe: float | None) -> d
     sel = select_checkpoint(read_curve(curve_path), base_unsafe)
     write_json(out, sel)
     return sel
+
+
+def make_val_callback(cfg: dict, subset: list[Scenario], tokenizer: Any, curve_path: Path,
+                      prefix: str):
+    """TrainerCallback: val-subset evaluation at every checkpoint save and at the end of training."""
+    import time
+
+    from transformers import TrainerCallback
+
+    class ValCallback(TrainerCallback):
+        def _eval(self, model: Any, step: int, ckpt: str) -> None:
+            t0 = time.perf_counter()
+            m = evaluate_loaded(model, tokenizer, subset, name=f"{prefix}-step{step}",
+                                batch_size=cfg["eval_batch_size"], seed=cfg["seed"])
+            append_curve(curve_path, {"step": step, "checkpoint": ckpt, **m})
+            log.info("%s step %d val: success=%.3f format=%.3f unsafe=%s (%.0fs)", prefix, step,
+                     m["diagnosis_success"], m["format_valid_rate"], m["unsafe_rate"],
+                     time.perf_counter() - t0)
+
+        def on_save(self, args, state, control, model=None, **kw):
+            self._eval(model, state.global_step,
+                       str(Path(args.output_dir) / f"checkpoint-{state.global_step}"))
+
+        def on_train_end(self, args, state, control, model=None, **kw):
+            final = Path(args.output_dir) / "final"
+            model.save_pretrained(final)
+            self._eval(model, state.global_step, str(final))
+
+    return ValCallback()

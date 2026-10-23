@@ -1,0 +1,28 @@
+# Stage B: GRPO from the SFT adapter (merged into the base first so the KL anchor is SFT).
+base_model: CohereLabs/tiny-aya-global
+start_from: runs/sft/final          # SFT adapter path or hub id (<user>/tinyops-tiny-aya-sft); null = base
+merged_dir: runs/sft_merged
+n_prompts: 800                      # 600-1000 RL prompts (data/train_rl, seed rl_seed)
+rl_seed: 9012
+lr: 5.0e-6
+num_generations: 4
+max_completion_length: 384
+batch: 2
+grad_accum: 4
+max_steps: 300                      # first run: 50
+temperature: 0.9                    # rollout sampling
+max_steps_per_turn: 8               # AgentTune tool-loop cap per rollout
+lora: {r: 16, alpha: 32, target_modules: all-linear}
+reward_weights: {diagnosis: 1.0, format: 0.5, schema: 0.5, efficiency: 0.3, grounding: 0.3, safety: 1.0}
+eval_every_steps: 50                # also saves a checkpoint here
+val_subset: 90
+eval_batch_size: 8
+peek_every_steps: 25                # print 10 random completions with their reward breakdown
+dtype: auto
+seed: 1234
+data_dir: data
+output_dir: runs/grpo
+results_dir: results
+sft_val_metrics: results/metrics/sft_val.json      # per-type SFT success -> failure-type weights
+sft_selection: results/runs/sft_selection.json     # SFT's val-subset row = selection reference
+push_to_hub: null

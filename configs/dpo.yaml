@@ -1,0 +1,24 @@
+# Stage B fallback: offline DPO on turn-level preference pairs (used if GRPO is not working).
+base_model: CohereLabs/tiny-aya-global
+start_from: runs/sft/final
+merged_dir: runs/sft_merged           # shared with GRPO
+policy_episodes:                      # failed rollouts of base/SFT on TRAIN scenarios (run_eval --split train)
+  - results/episodes/base_train.jsonl
+  - results/episodes/sft_train.jsonl
+max_pairs: 1500
+beta: 0.1
+lr: 5.0e-6
+epochs: 2
+batch: 1
+grad_accum: 8
+max_length: 4096
+lora: {r: 16, alpha: 32, target_modules: all-linear}
+eval_every_steps: 50
+val_subset: 90
+eval_batch_size: 8
+dtype: auto
+seed: 1234
+data_dir: data
+output_dir: runs/dpo
+results_dir: results
+sft_selection: results/runs/sft_selection.json

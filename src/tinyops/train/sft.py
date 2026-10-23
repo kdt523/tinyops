@@ -22,8 +22,7 @@ from tinyops.sim.env import Episode
 from tinyops.train.sft_data import MixConfig, build_sft_dataset
 from tinyops.train.val_eval import (
     CURVE_FIELDS,
-    append_curve,
-    evaluate_loaded,
+    make_val_callback,
     select_val_subset,
     write_selection,
 )
@@ -89,30 +88,6 @@ def warmup_kwargs(config_cls: Any, ratio: float) -> dict:
 
     params = inspect.signature(config_cls.__init__).parameters
     return {"warmup_ratio": ratio} if "warmup_ratio" in params else {"warmup_steps": ratio}
-
-
-def _callback(cfg: dict, val_subset: list, tokenizer: Any, curve_path: Path):
-    from transformers import TrainerCallback
-
-    class ValCallback(TrainerCallback):
-        def _eval(self, model, step: int, ckpt: str) -> None:
-            t0 = time.perf_counter()
-            m = evaluate_loaded(model, tokenizer, val_subset, name=f"sft-step{step}",
-                                batch_size=cfg["eval_batch_size"], seed=cfg["seed"])
-            append_curve(curve_path, {"step": step, "checkpoint": ckpt, **m})
-            log.info("step %d val: success=%.3f format=%.3f unsafe=%s (%.0fs)", step,
-                     m["diagnosis_success"], m["format_valid_rate"], m["unsafe_rate"],
-                     time.perf_counter() - t0)
-
-        def on_save(self, args, state, control, model=None, **kw):
-            self._eval(model, state.global_step, str(Path(args.output_dir) / f"checkpoint-{state.global_step}"))
-
-        def on_train_end(self, args, state, control, model=None, **kw):
-            final = Path(args.output_dir) / "final"
-            model.save_pretrained(final)
-            self._eval(model, state.global_step, str(final))
-
-    return ValCallback()
 
 
 def run_sft(cfg: dict) -> dict:
@@ -182,7 +157,7 @@ def run_sft(cfg: dict) -> dict:
         model=cfg["base_model"], args=args, train_dataset=train_ds, processing_class=tok,
         peft_config=LoraConfig(r=lora["r"], lora_alpha=lora["alpha"], lora_dropout=lora["dropout"],
                                target_modules=lora["target_modules"], task_type="CAUSAL_LM"),
-        callbacks=[_callback(cfg, subset, tok, curve)],
+        callbacks=[make_val_callback(cfg, subset, tok, curve, "sft")],
     )
     t0 = time.perf_counter()
     trainer.train()

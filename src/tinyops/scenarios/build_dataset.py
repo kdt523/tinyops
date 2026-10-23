@@ -82,14 +82,15 @@ def plan_split(split: str, seed: int) -> list[dict]:
     return slots
 
 
-def build_split(split: str, seed: int, name: str | None = None) -> list[Scenario]:
-    """Scenarios of `split`. `name` only changes the id prefix (e.g. train_extra)."""
+def build_from_slots(
+    split: str, slots: list[dict], seed: int, name: str | None = None
+) -> list[Scenario]:
+    """Generate scenarios for ordered slots (type, difficulty, family). Deterministic."""
     pools = OOD_POOLS if split == "test_ood" else TRAIN_POOLS
-    slots = plan_split(split, seed)
     loc_counts: Counter[str] = Counter()
     out: list[Scenario] = []
     for idx, slot in enumerate(slots):
-        rng = random.Random(sub_seed(seed, f"{split}-{idx}"))
+        rng = random.Random(sub_seed(seed, f"{name or split}-{idx}"))
         ft, diff, fam = slot["failure_type"], slot["difficulty"], slot["family"]
         state = FAILURE_TYPES[ft](rng, diff, pools)
         location = None
@@ -106,6 +107,11 @@ def build_split(split: str, seed: int, name: str | None = None) -> list[Scenario
             alert_text=alert, state=state,
         ))
     return out
+
+
+def build_split(split: str, seed: int, name: str | None = None) -> list[Scenario]:
+    """Scenarios of `split`. `name` only changes the id prefix (e.g. train_extra)."""
+    return build_from_slots(split, plan_split(split, seed), seed, name)
 
 
 def split_stats(scenarios: list[Scenario]) -> dict:

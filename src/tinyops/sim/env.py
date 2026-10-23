@@ -225,7 +225,9 @@ class EpisodeSession:
         return Episode(
             scenario_id=self.scenario_id, policy_name=self.policy_name, seed=self.seed,
             alert_text=self.alert_text, steps=self.env.steps, diagnosis=self.env.diagnosis,
-            termination="policy_error" if self.error else self.env.termination,
+            termination=(
+                "policy_error" if self.error or self.env.termination is None
+                else self.env.termination),
             tool_outputs_seen=list(self.env.observations), meta=meta,
         )
 

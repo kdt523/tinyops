@@ -43,3 +43,11 @@ def test_sft_notebook_covers_training_selection_and_publishing():
                    "gold --split all", "--adapter", "tinyops-tiny-aya-sft"):
         assert needle in text
     assert "--final" not in text and "test_injection" not in text  # val only
+
+
+def test_grpo_notebook_covers_pilot_full_run_fallback_and_choice():
+    text = (ROOT / "notebooks" / "03_grpo.ipynb").read_text(encoding="utf-8")
+    for needle in ("max_steps=50", "max_steps=300", "grpo_selection.json", "go-no-go", "tinyops.train.dpo",
+                   "stage_b final", "sft/final+", "tinyops-tiny-aya", "Read the printed completions"):
+        assert needle in text
+    assert "--final" not in text and '"--split test' not in text  # val and train only
