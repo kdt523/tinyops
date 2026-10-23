@@ -1,0 +1,8 @@
+gradio==6.30.0
+# replay mode needs nothing else. Live mode (GPU Space) also needs the package and the model stack:
+# tinyops @ git+https://github.com/<github-user>/tinyops
+# torch
+# transformers
+# peft
+# accelerate
+# spaces

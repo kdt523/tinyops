@@ -15,7 +15,7 @@ dependencies = [
 train = ["agenttune @ git+https://github.com/Lexsi-Labs/AgentTune.git@d4db4c12d52342227c4113a70183d0f64aa2f345",
          "transformers", "trl", "peft", "accelerate", "datasets", "bitsandbytes"]
 space = ["gradio>=5"]
-dev = ["pytest>=8", "pytest-cov", "ruff>=0.6"]
+dev = ["pytest>=8", "pytest-cov", "ruff>=0.6", "datasets>=2.19"]  # datasets: SFT/RL data tests (no torch needed)
 
 [tool.hatch.metadata]
 allow-direct-references = true

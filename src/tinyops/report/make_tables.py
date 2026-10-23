@@ -6,6 +6,7 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 from typing import Annotated
 
@@ -110,6 +111,18 @@ def readme_table(report: dict) -> str:
     return _table(["Model", *[c[2] for c in cols]], rows)
 
 
+README_BLOCK = re.compile(r"(<!-- RESULTS:START -->\n).*?(\n<!-- RESULTS:END -->)", re.DOTALL)
+
+
+def update_readme(text: str, report: dict) -> str:
+    """Replace the RESULTS block of the README with the table generated from report.json."""
+    if not README_BLOCK.search(text):
+        raise ValueError("README has no <!-- RESULTS:START --> ... <!-- RESULTS:END --> block")
+    body = (readme_table(report).strip() + "\n\n_Locked test splits, greedy decoding, 95% bootstrap CIs. "
+            "Generated from `results/final/report.json`._")
+    return README_BLOCK.sub(lambda m: m.group(1) + body + m.group(2), text)
+
+
 app = typer.Typer(add_completion=False)
 
 
@@ -117,8 +130,14 @@ app = typer.Typer(add_completion=False)
 def main(
     final_dir: Annotated[Path, typer.Option()] = FINAL,
     readme: Annotated[bool, typer.Option("--readme", help="print the compact README table")] = False,
+    update: Annotated[bool, typer.Option("--update-readme", help="write the table into README.md")] = False,
+    readme_path: Annotated[Path, typer.Option()] = Path("README.md"),
 ) -> None:
     report = json.loads((final_dir / "report.json").read_text(encoding="utf-8"))
+    if update:
+        readme_path.write_text(update_readme(readme_path.read_text(encoding="utf-8"), report), encoding="utf-8")
+        typer.echo(f"updated {readme_path}")
+        return
     typer.echo(readme_table(report) if readme else render_tables(report, final_dir))
 
 
