@@ -70,6 +70,27 @@ def test_hf_policy_constructs_without_loading_a_model(built_data):
     assert cfg["fewshot"] == 2 and cfg["load_in_4bit"] is False
 
 
+def test_hf_policy_halves_the_batch_on_cuda_oom(monkeypatch):
+    torch = pytest.importorskip("torch")
+    p = HFPolicy("CohereLabs/tiny-aya-global")
+    sizes = []
+
+    def fake_generate(batch):
+        sizes.append(len(batch))
+        if len(batch) > 2:
+            raise torch.cuda.OutOfMemoryError("out of memory")
+        return [f"out{m[0]['content']}" for m in batch]
+
+    monkeypatch.setattr(p, "_generate", fake_generate)
+    monkeypatch.setattr(torch.cuda, "empty_cache", lambda: None)
+    batch = [[{"content": str(i)}] for i in range(5)]
+    assert p.act_batch(batch) == [f"out{i}" for i in range(5)]  # order preserved
+    assert sizes == [5, 2, 3, 1, 2]
+    monkeypatch.setattr(p, "_generate", lambda b: (_ for _ in ()).throw(torch.cuda.OutOfMemoryError("x")))
+    with pytest.raises(torch.cuda.OutOfMemoryError):
+        p.act_batch(batch[:1])  # a single prompt that cannot fit is a real failure
+
+
 def fake_response(text, p=11, c=7):
     return SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content=text))],
                            usage=SimpleNamespace(prompt_tokens=p, completion_tokens=c))

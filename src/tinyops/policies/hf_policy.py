@@ -141,6 +141,20 @@ class HFPolicy:
         return StoppingCriteriaList([JsonComplete()])
 
     def act_batch(self, batch: list[list[dict]]) -> list[PolicyOutput]:
+        """Greedy generation; on CUDA OOM the batch is halved and retried (never fails episodes)."""
+        import torch
+
+        try:
+            return self._generate(batch)
+        except torch.cuda.OutOfMemoryError:
+            if len(batch) == 1:
+                raise
+            log.warning("CUDA OOM at batch size %d; retrying as two halves", len(batch))
+            torch.cuda.empty_cache()
+            mid = len(batch) // 2
+            return self.act_batch(batch[:mid]) + self.act_batch(batch[mid:])
+
+    def _generate(self, batch: list[list[dict]]) -> list[PolicyOutput]:
         import torch
 
         self._load()
